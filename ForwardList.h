@@ -18,7 +18,7 @@
 /// element is invalidated when the corresponding element is removed (via
 /// erase()) from the list.
 /// ---------------------------------------------------------------------------
-
+template <class T>
 class ForwardList
 {
 protected:
@@ -36,7 +36,7 @@ public:
     public:
         // member types (required to integrate with standard library)
         using iterator_category = std::forward_iterator_tag;
-        using value_type = int;
+        using value_type = <T>;
         using difference_type = std::ptrdiff_t;
         using pointer = Node *;
         using reference = value_type &;
@@ -65,7 +65,7 @@ public:
     };
 
     // member types
-    using value_type = int;
+    using value_type = T;
     using size_type = std::size_t;
     using reference = value_type &;
     using iterator = Iterator;
