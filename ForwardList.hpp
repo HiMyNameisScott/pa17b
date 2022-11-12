@@ -96,6 +96,7 @@ public:
 
 protected:
     Node *first{};     ///< pointer to the head node
+    Node *last{};      ///< pointer to the tail node
     size_type count{}; ///< number of nodes in list
 };
 
@@ -109,7 +110,6 @@ bool operator==(const ForwardList<T> &lhs, const ForwardList<T> &rhs);
 template <class T>
 bool operator!=(const ForwardList<T> &lhs, const ForwardList<T> &rhs);
 
-#include "ForwardList.h"
 // ctors
 template <class T>
 ForwardList<T>::ForwardList()
@@ -180,7 +180,7 @@ void ForwardList<T>::clear()
 
 /// Inserts a value before pos
 template <class T>
-ForwardList<T>::iterator ForwardList<T>::insert(ForwardList<T>::iterator pos, const ForwardList<T>::value_type &value)
+typename ForwardList<T>::iterator ForwardList<T>::insert(ForwardList<T>::iterator pos, const ForwardList<T>::value_type &value)
 {
    Node *node = new Node{value, nullptr};   // Node to become inserted
 
@@ -210,7 +210,7 @@ ForwardList<T>::iterator ForwardList<T>::insert(ForwardList<T>::iterator pos, co
 
 /// Erases an element at pos
 template <class T>
-ForwardList<T>::iterator ForwardList<T>::erase(ForwardList<T>::iterator pos){
+typename ForwardList<T>::iterator ForwardList<T>::erase(ForwardList<T>::iterator pos){
     if (empty()) {
         pos = end();
     } else if (pos == begin()) {
