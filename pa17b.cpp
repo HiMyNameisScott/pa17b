@@ -30,7 +30,7 @@ int main(){
         } else if(add_to_front == true && ch != '[') {
             info.insert(info.end(), ch);
         } else if (ch != '[' && ch != ']') {
-            info.insert(info.begin(), ch);
+            // info.insert(ForwardList<char>::Iterator::operator->(), ch);
         }
     }
 

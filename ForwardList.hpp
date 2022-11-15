@@ -1,3 +1,11 @@
+ /// @file ForwardList.hpp
+ /// @author Scott T. Koss
+ /// @date 11/15/2022
+ /// @note I pledge my word of honor that I have complied with the
+ /// CSN Academic Integrity Policy while completing this assignment.
+ /// @brief template class for ForwardList
+ /// @note 6-8 hours
+
 #ifndef HPP_FORWARDLIST
 #define HPP_FORWARDLIST
 #include <iterator>
@@ -184,27 +192,23 @@ typename ForwardList<T>::iterator ForwardList<T>::insert(ForwardList<T>::iterato
 {
    Node *node = new Node{value, nullptr};   // Node to become inserted
 
-   if(pos == begin() || empty()) {
+   if(pos == nullptr) {
     
-        node->link = first;                 // insert before first
-        first = node;                       // update first pointer
+        first = newNode;
+        last = newNode;
+        count++                      // update first pointer
+
+   } else if (pos != empty()){
+        last->link = newNode;
+        last = newNode;
+        count ++;
 
    } else {
-
-        Node* previous = first;
-        Node* current = first->link;
-
-        while (current != nullptr && current != pos.operator->()) {
-            previous = current;
-            current = current->link;
-        }
-
-        node->link = previous->link;
-        previous->link = node;
-
+        newNode->link = first;
+        first = newNode; 
+        count ++;
    }
-   count ++;
-
+   
    return iterator{ node };
 };
 
@@ -258,6 +262,5 @@ template <class T>
 bool operator!=(const ForwardList<T> &lhs, const ForwardList<T> &rhs){
     return !(lhs == rhs);
 };
-
 
 #endif
