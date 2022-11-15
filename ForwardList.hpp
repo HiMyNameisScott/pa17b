@@ -25,8 +25,8 @@ protected:
     /// A ForwardList node.
     struct Node
     {
-        T info{};
-        Node *link{};
+        T info{};               // initial node
+        Node *link{};           // initial node link
     };
 
 public:
@@ -36,12 +36,12 @@ public:
     public:
         // member types (required to integrate with standard library)
         using iterator_category = std::forward_iterator_tag;
-        using value_type = T;
+        using value_type = T;                               //  data type
         using difference_type = std::ptrdiff_t;
-        using pointer = Node *;
-        using reference = value_type &;
+        using pointer = Node *;                             //  node data type for pointer
+        using reference = value_type &;                     //  derefence the data
 
-        Iterator(pointer ptr = nullptr) : current(ptr) {}
+        Iterator(pointer ptr = nullptr) : current(ptr) {}   
         reference operator*() const { return current->info; }
         pointer operator->() { return current; }
         Iterator &operator++()
@@ -114,14 +114,14 @@ bool operator!=(const ForwardList<T> &lhs, const ForwardList<T> &rhs);
 template <class T>
 ForwardList<T>::ForwardList()
 {
-    first = nullptr;
+    first = nullptr;        // default values for initial nodes
     count = 0;
 };
 
 template <class T>
 ForwardList<T>::ForwardList(const ForwardList &other)
 {
-    *this = other;
+    *this = other;          // copies this to other list with copy assignment
 };
 
 
