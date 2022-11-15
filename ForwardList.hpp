@@ -81,7 +81,7 @@ public:
 
     // iterators
     iterator begin() const { return iterator(first); }
-    iterator end() const { return iterator(); }
+    iterator end() const { return iterator(last); }
 
     // capacity
     bool empty() const { return begin() == end(); }

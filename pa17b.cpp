@@ -10,19 +10,23 @@ using namespace std;
 int main(){
     char ch;
     bool add_to_end = false;
+    bool add_to_front = false;
+    bool add_current = false;
     ForwardList<char> info;
     
     while (cin >> ch && !cin.eof())
     {
         if(ch == '['){
+            add_to_front = true;
             add_to_end = false;
-            std::cin.ignore(1);
         } else if (ch == ']') {
             add_to_end = true;
-            std::cin.ignore(1);
+            add_to_front = false;    
         }
 
         if (add_to_end == true){
+            info.insert(info.begin(), ch);
+        } else if(add_to_front == true) {
             info.insert(info.end(), ch);
         } else {
             info.insert(info.begin(), ch);
