@@ -1,54 +1,35 @@
+ /// @file pa17b.cpp
+ /// @author Scott T. Koss
+ /// @date 11/15/2022
+ /// @note I pledge my word of honor that I have complied with the
+ /// CSN Academic Integrity Policy while completing this assignment.
+ /// @brief sorts characters based on whether they need to go to front/end/current
+ /// @note 6-8 hours
+
 #include "ForwardList.hpp"
 #include <iostream>
 
 
-static std::ostream& operator<<(std::ostream& output, const ForwardList<char>& info);
-using namespace std;
-
-
 
 int main(){
-    char ch;
-    bool add_to_end = false;                                // check to add front
-    bool add_to_front = false;                              // check to add back
-                              
-    ForwardList<char> info;                                 // holds char to check
+    using namespace std;
     
-    while (cin >> ch && !cin.eof())
-    {
-        if(ch == '['){                                      // inserts front/back depending on ch
-            add_to_front = true;
-            add_to_end = false;
-
-        } else if (ch == ']') {
-            add_to_end = true;
-            add_to_front = false;    
+    auto text = string {};                 // holds char to check
+    text.reserve(100000);
+    
+    while (getline(cin, text)){
+        auto list = ForwardList<char>{};  // holds characters as they appear
+        auto ip = list.begin();           // insertion point!
+    
+        for (char ch : text) {
+            switch (ch) {
+                case '[' : ip = list.begin();   break;
+                case ']' : ip = list.end();     break;
+                default:   list.insert(ip, ch); break;
+            }
         }
-
-        if (add_to_end == true && ch != ']'){               // inserts front/back depending on ch 
-            info.insert(info.begin(), ch);
-        } else if(add_to_front == true && ch != '[') {
-            info.insert(info.end(), ch);
-        } else if (ch != '[' && ch != ']') {
-            // info.insert(ForwardList<char>::Iterator::operator->(), ch);
-        }
-    }
-
-    cout << info;                                           // displays info
 
     
 return 0;
 }
 
-
-/// @brief This will output the list to a specified output type
-/// @param output used for declaring which output to display to 
-/// @param info  is the list we are processing
-/// @return output so that we have processed.
-static std::ostream& operator<<(std::ostream& output, const ForwardList<char>& info){
-    for (auto it = info.begin() ; it != info.end(); ++it){
-        output << it->info;
-    };
-
-    return output;
-};

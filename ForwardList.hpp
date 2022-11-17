@@ -192,22 +192,31 @@ typename ForwardList<T>::iterator ForwardList<T>::insert(ForwardList<T>::iterato
 {
    Node *node = new Node{value, nullptr};   // Node to become inserted
 
-   if(pos == nullptr) {
+   if(empty() || pos == nullptr) {
     
-        first = newNode;
-        last = newNode;
-        count++                      // update first pointer
+        node->link = first;
+        first = node;
 
-   } else if (pos != empty()){
-        last->link = newNode;
-        last = newNode;
-        count ++;
+   } else if (pos == end()){
+        last->link = node;
+        last = node;
 
    } else {
-        newNode->link = first;
-        first = newNode; 
-        count ++;
+        // Will insert somewhere in the list
+        Node* previous = first;         // trailer
+        Node* current = first->link;    // traversal
+
+        // traverse the list, looking for node before pos
+        while (current != nullptr && current != pos.operator->()) {
+            previous = current;
+            current = current->link;
+        }
+        // insert new node before pos
+        node->link = previous->link;
+        previous->link = node;
    }
+
+        count ++
    
    return iterator{ node };
 };
@@ -216,14 +225,14 @@ typename ForwardList<T>::iterator ForwardList<T>::insert(ForwardList<T>::iterato
 template <class T>
 typename ForwardList<T>::iterator ForwardList<T>::erase(ForwardList<T>::iterator pos){
     if (empty()) {
-        pos = end();
+        pos = end();                    // no elements exist
     } else if (pos == begin()) {
         //case 1: item to be deleted is first node of the list
-        const Node* tmp = first;
-        pos = iterator(first->link);
-        first = first->link;
-        delete tmp;
-        --count;
+        const Node* tmp = first;        // temp pointer for removal
+        pos = iterator(first->link);    // node follownig erased one
+        first = first->link;            // update first pointer
+        delete tmp;                     // reclaim memory
+        --count;                        // lower count 
     } else {
         //case 2: item to be deleted is somewhere in the list
         Node* previous = first;             // trailing pointer
